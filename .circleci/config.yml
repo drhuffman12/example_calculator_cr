@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: crystallang/crystal:nightly
+    steps:
+      - checkout
+      - run: shards install
+      - run:
+          name: run tests
+          command: |
+            mkdir -p qa/tests
+            crystal -v > qa/crystal_version.txt
+            crystal eval 'require "./src/ai4cr"; puts "Ai4cr version: #{Ai4cr::VERSION}"' > qa/app_version.txt
+            time crystal spec --release --no-debug --time --error-trace --no-color > qa/tests/index.txt
+            time crystal spec --release --no-debug --time --error-trace --no-color --junit_output qa/tests
+      # collect reports
+      - store_test_results:
+          path: qa
+
+      - store_artifacts:
+          path: qa
+          destination: qa
