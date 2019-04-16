@@ -1,6 +1,7 @@
 # TODO: Write documentation for `ExampleCalculator`
 module ExampleCalculator
   VERSION = "0.1.0"
+  class Error < Exception; end
 end
 
 alias OWRV = NamedTuple(op: Symbol, value: Int32)
@@ -77,11 +78,9 @@ def calculation(left_value : Int32, op_with_right_value : OWRV? = nil)
     when :divided_by
       left_value / right_value
     else
-      raise "Unsupported Operation '#{op}'"
+      raise ExampleCalculator::Error.new("Unsupported Operation '#{op}'")
     end
   else
     left_value
   end
 end
-
-puts "hi"

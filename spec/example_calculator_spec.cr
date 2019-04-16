@@ -20,4 +20,9 @@ describe ExampleCalculator do
   it "eight(divided_by(two)) # must return 4" do
     eight(divided_by(two)).should eq(4)
   end
+
+  it "calculation with an invalid operation symbol raises" do
+    op_with_right_value = { op: :something_invalid, value: two }
+    expect_raises(ExampleCalculator::Error, /something_invalid/) { calculation(three, op_with_right_value) }
+  end
 end
