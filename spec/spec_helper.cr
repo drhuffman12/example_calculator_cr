@@ -1,2 +1,2 @@
 require "spec"
-require "../src/example_calculator_cr"
+require "../src/example_calculator"

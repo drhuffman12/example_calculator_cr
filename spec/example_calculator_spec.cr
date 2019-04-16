@@ -4,7 +4,7 @@ def some_code
   puts "some code not tested"
 end
 
-describe ExampleCalculatorCr do
+describe ExampleCalculator do
   # TODO: Write tests
 
   it "works" do
@@ -12,7 +12,7 @@ describe ExampleCalculatorCr do
   end
 
   # it "foo should return :bar" do
-  #   ExampleCalculatorCr.foo.should eq(:bar)
+  #   ExampleCalculator.foo.should eq(:bar)
   # end
 
 end
