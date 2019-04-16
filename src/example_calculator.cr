@@ -1,6 +1,7 @@
 # TODO: Write documentation for `ExampleCalculator`
 module ExampleCalculator
   VERSION = "0.1.0"
+
   class Error < Exception; end
 end
 

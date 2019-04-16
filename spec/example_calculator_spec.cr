@@ -21,8 +21,12 @@ describe ExampleCalculator do
     eight(divided_by(two)).should eq(4)
   end
 
+  it "seven(minus(four)) # must return 3" do
+    seven(minus(four)).should eq(3)
+  end
+
   it "calculation with an invalid operation symbol raises" do
-    op_with_right_value = { op: :something_invalid, value: two }
-    expect_raises(ExampleCalculator::Error, /something_invalid/) { calculation(three, op_with_right_value) }
+    op_with_right_value = {op: :something_invalid, value: two}
+    expect_raises(ExampleCalculator::Error, /something_invalid/) { calculation(zero, op_with_right_value) }
   end
 end
