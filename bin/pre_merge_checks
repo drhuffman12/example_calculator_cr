@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+shards install
+# shards update
+
+rm -rf qa/style_etc
+rm -rf qa/coverage
+rm -rf qa/tests
+
+mkdir -p qa/style_etc
+mkdir -p qa/coverage
+mkdir -p qa/tests
+
+# TXT/HTML formats for Developer-friendly-ness
+# bundle exec rubocop --format html -o qa/rubocop/index.html
+# bundle exec rspec --format html --out qa/rspec/index.html
+
+echo "Checking Crystal code formatting. (Run: 'crystal tool format' to auto-format the code.)" > qa/style_etc/format.txt 2>&1
+crystal tool format --check --no-color --show-backtrace >> qa/style_etc/format.txt 2>&1
+
+bin/ameba --no-color > qa/style_etc/index.txt 2>&1
+
+mkdir -p coverage
+# bin/crystal-coverage src/example_calculator.cr
+bin/crystal-coverage spec/example_calculator_spec.cr > qa/tests/index.txt 2>&1
+
+# bin/crystal-coverage spec
+mv coverage/ qa/
+
+# crystal spec --release --no-debug --time --error-trace --no-color > qa/tests/index.txt 2>&1
+
+# # .. If your CI/CD system likes JUnit format, you could also use that ...
+# crystal spec --release --no-debug --time --error-trace --no-color --junit_output qa/tests
